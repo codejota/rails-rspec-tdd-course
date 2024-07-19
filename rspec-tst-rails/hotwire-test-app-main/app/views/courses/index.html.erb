@@ -1,0 +1,26 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Courses</h1>
+
+<%= form_with(url: courses_path, method: :get, data: { turbo_frame: "results", turbo_action: "advance" }) do |f| %>
+  <div>
+    <%= f.search_field :title, placeholder: "Course name", value: params[:title] %>
+    <%= f.submit "Search" %>
+  </div>
+  <hr>
+<% end %>
+
+<%= turbo_frame_tag "results" do %>
+  <div id="courses">
+    <% @courses.each do |course| %>
+      <%= render course %>
+      <p>
+        <%= link_to "Show this course", course %>
+      </p>
+      <hr>
+    <% end %>
+  </div>
+<% end %>
+
+
+<%= link_to "New course", new_course_path %>

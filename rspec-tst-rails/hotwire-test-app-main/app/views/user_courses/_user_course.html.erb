@@ -1,0 +1,12 @@
+<%= turbo_frame_tag dom_id(user_course) do %>
+  <p><%= "Usuário: #{user_course.user.name}"%><%= link_to '(ver)', user_path(user_course.user), data: { turbo_frame: "_top" }%> </p>
+  <p><%= "Email: #{user_course.user.email}"%> </p>
+  <p><%= "Curso:#{user_course.course.title}"%> <%= link_to '(ver)', course_path(user_course.course), data: { turbo_frame: "_top" } %></p>
+  <p><%= "Url:#{user_course.course.video_url}"%> </p>
+
+  <p>Qtd. de likes: <strong><%= user_course.likes %></strong></p>
+  <p><%= Time.now.strftime("%H:%M:%S") %></p>
+
+  <%= button_to 'Like!', like_user_course_path(user_course), method: :post %>
+<% end %>
+

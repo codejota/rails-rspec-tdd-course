@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Users</h1>
+<%= content_tag(:div, id: :users_status_count, "data-turbo-permanent": '') do %>
+  <%= render "users_status_count" %>
+<% end %>
+
+<div id="users">
+  <div>
+    <% @users.each do |user| %>
+      <div>
+        <%= render user %>
+        <p>
+          <%= link_to "Show this user", user, target: "_top" %>
+        </p>
+
+        <%= link_to "Destroy this user", user, data: { turbo_confirm: "Are you sure?", turbo_method: :delete } %>
+
+        <%= render "change_status_button", user: %>
+
+        <hr>
+      </div>
+    <% end %>
+
+    <% if @pagy.next %>
+      <%= turbo_frame_tag "show_users_per_page_#{@pagy.next}", src: users_path(page: @pagy.next), loading: :lazy do %>
+        <p>Waiting...</p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "New user", new_user_path %>

@@ -27,26 +27,6 @@ This repository is dedicated to demonstrating the implementation of TDD (Test-Dr
 
 ## Installation
 
-To set up this project/tests locally, follow these steps:
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/username/tdd-rspec-test-course.git
-   cd tdd-rspec-test-course
-   ```
-
-2. Install the required gems:
-
-   ```bash
-   bundle install
-   ```
-
-3. Run the tests to ensure everything is set up correctly:
-   ```bash
-   bundle exec rspec
-   ```
-
 ## Contact
 
 For any questions or inquiries, please reach out to me via [contato@jotacode.dev](mailto:contato@jotacode.dev).

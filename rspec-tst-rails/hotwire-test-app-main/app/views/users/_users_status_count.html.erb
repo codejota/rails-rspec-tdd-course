@@ -1,0 +1,4 @@
+<h2>
+  <%= "Actives: #{User.where(active: true).count} / Inactives: #{User.where(active: false).count} " %>
+</h2>
+

@@ -1,0 +1,11 @@
+<%= turbo_stream.update :users_status_count do %>
+  <%= render "users_status_count" %>
+<% end %>
+
+<%= turbo_stream.replace "change_status_button_#{dom_id(@user)}" do %>
+  <%= render "change_status_button", user: @user %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@user) do %>
+  <%= render "user", user: @user %>
+<% end %>

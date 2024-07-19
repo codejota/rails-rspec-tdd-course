@@ -1,0 +1,10 @@
+<%= turbo_stream.update :users_status_count do %>
+  <%= render "users_status_count" %>
+<% end %>
+
+<%= turbo_stream.remove "user_container_#{dom_id(@user)}" %>
+
+<%= turbo_stream.update :flash_messages do %>
+  <%= render "layouts/flash_messages" %>
+<% end %>
+

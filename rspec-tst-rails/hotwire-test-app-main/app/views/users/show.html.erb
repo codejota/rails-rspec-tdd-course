@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<%= content_tag(:div, id: :users_status_count, "data-turbo-permanent": '') do %>
+  <%= render "users_status_count" %>
+<% end %>
+
+<%= turbo_frame_tag "show" do %>
+  <%= render @user %>
+<% end %>
+
+<%= render "change_status_button", user: @user %>
+
+<div>
+  <%= link_to "Edit this user", edit_user_path(@user) %> |
+  <%= link_to "Back to users", users_path %>
+
+  <%#= button_to "Destroy this user", @user, method: :delete, data: { turbo_confirm: "Are you sure?", turbo: false } %>
+  <%= button_to "Destroy this user", @user, method: :delete, data: { turbo: false } %>
+</div>

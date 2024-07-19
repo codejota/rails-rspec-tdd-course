@@ -111,3 +111,98 @@ The test pyramid is a concept that illustrates the ideal quantity of each type o
 - Confidence in Quality: Comprehensive test coverage gives developers confidence that the system works correctly at all levels.
 
 Implementing the test pyramid in your testing strategy can help create a robust and efficient test suite, resulting in high-quality and maintainable software
+
+---
+
+## Rails Rspec
+
+### RSpec in Rails with Shoulda Matchers
+
+#### Test with Shoulda Matchers
+
+see detailed [user_spec.rb](./rspec-tst-rails/hotwire-test-app-main/spec/models/user_spec.rb)
+
+```ruby
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe User, type: :model do
+  context 'associations' do
+    it { should have_many(:user_courses) }
+    it { should have_many(:courses).through(:user_courses) }
+  end
+end
+```
+
+### Explanation
+
+The `Shoulda Matchers` simplify writing tests, allowing you to verify associations and validations concisely and legibly.
+
+---
+
+## Second Method
+
+```ruby
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe User, type: :model do
+  context 'associations' do
+    it 'has_many :user_courses' do
+      expect(User.reflect_on_association(:user_courses)).to_not be_nil
+    end
+
+    it 'has_many :courses, through: :user_courses' do
+      expect(User.reflect_on_association(:courses)).to_not be_nil
+    end
+  end
+end
+```
+
+### Explanation
+
+This method uses `reflect_on_association` to check for the presence of associations directly in the model's metadata.
+
+---
+
+## First Method
+
+```ruby
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe User, type: :model do
+  context 'associations' do
+    it 'has_many :user_courses' do
+      user = User.create(email: 'test@test.com', name: 'Batman')
+      course = Course.create(title: 'Batman Course', video_url: 'http://batman.com')
+      user_course = UserCourse.create(user_id: user.id, course_id: course.id)
+
+      expect(user.user_courses).to include(user_course)
+    end
+
+    it 'has_many :courses, through: :user_courses' do
+      user = User.create(email: 'test@test.com', name: 'Batman')
+      course = Course.create(title: 'Batman Course', video_url: 'http://batman.com')
+      UserCourse.create(user_id: user.id, course_id: course.id)
+
+      expect(user.courses).to include(course)
+    end
+  end
+end
+```
+
+### Explanation
+
+This method creates actual instances of the models to check the associations, ensuring the relationships work as expected.
+
+---
+
+### Conclusion
+
+- **Shoulda Matchers**: Ideal for quick and readable tests of associations and validations.
+- **Reflect_on_association**: Useful for checking the presence of associations in the metadata.
+- **Creating Real Instances**: Ensures relationships work in practice, testing the full association logic.

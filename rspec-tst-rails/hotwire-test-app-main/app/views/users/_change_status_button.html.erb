@@ -1,0 +1,6 @@
+<%= content_tag(:div, id: "change_status_button_#{dom_id(user)}") do %>
+  <p>
+    <% user_status_label = user.active ? "Inactivate!" : "Activate!" %>
+    <%= button_to user_status_label, change_status_user_path(user) %>
+  </p>
+<% end %>
